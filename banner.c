@@ -10,7 +10,59 @@ typedef struct flag {
     uint8_t count;
 } Flag;
 
-typedef struct banner {
-    uint32_t bitmap[BANNER_HEIGHT * BANNER_WIDTH];
-} Banner;
+typedef enum pattern_area {
+    HALF_TOP,
+    HALF_BOTTOM,
+    HALF_LEFT,
+    HALF_RIGHT,
+    THIRD_TOP,
+    THIRD_HORIZONTAL,
+    THIRD_BOTTOM,
+    THIRD_LEFT,
+    THIRD_RIGHT,
+    THIRD_VERTICAL,
+    
+} Pattern_Area;
 
+typedef struct pattern {
+    Pattern_Area area;
+    Flag color;
+} Pattern;
+
+typedef enum decal {
+    AROACE_AGENDER,
+    MALE,
+    FEMALE,
+    ENBY_MIX,
+    ENBY_GLYPH,
+    ENBY_FEM_MIX,
+    ENBY_FEM_GLYPH,
+    ENBY_MASC_MIX,
+    ENBY_MASC_GLYPH,
+    DEMIBOY,
+    DEMIGIRL,
+    BIGENDER,
+    TRANSGENDER,
+    GAY,
+    LESBIAN,
+    STRAIGHT,
+    BISEXUAL,
+    BISEXUAL_MALE,
+    BISEXUAL_FEMALE,
+    BISEXUAL_ENBY_MIX,
+    BISEXUAL_ENBY_GLYPH,
+    BISEXUAL_TRANSGENDER,
+    TORIC_ENBY,
+    TORIC_TRANS,
+    TRIXIC_ENBY,
+    TRIXIC_TRANS,
+    FEMBOY,
+    TOMBOY,
+    ORCHIE,
+    OOPHIE,
+} Decal;
+
+typedef struct banner {
+    Pattern *patterns;
+    Decal *decal
+} Banner;
