@@ -1,7 +1,11 @@
 #include <stdint.h>
 
-static const uint32_t BANNER_HEIGHT = 80;
-static const uint32_t BANNER_WIDTH = 45;
+static const uint8_t BANNER_HEIGHT = 80;
+static const uint8_t BANNER_WIDTH = 45;
+static const uint8_t SPACE_WIDTH = 1;
+static const uint8_t CHAR_WIDTH = 5;
+static const uint8_t CHAR_HEIHT = 5;
+static const uint8_t OFFSET_DEFAULT = 0;
 
 /* For flags with nonuniform stripe widths use quantity to create proportions:
     (ex: bisexual flag - pink, pink, purple, blue, blue) */
@@ -64,5 +68,32 @@ typedef enum decal {
 
 typedef struct banner {
     Pattern *patterns;
-    Decal *decal
+    Decal *decal;
+    char *text;
 } Banner;
+
+void add_flag() {
+
+}
+
+void line_width(char *str, uint8_t *offset, int8_t *chars_remaining) {
+    char c;
+    uint8_t width; // to account for no initial interchar spacing
+    for (width = -1; (c = str[*offset]) != '\n' && c != '\0'; ++*offset) {
+        if (c >= '0' && c <= '9' || c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z') {
+            width += CHAR_WIDTH;
+        } else if (c == ' ') {
+            width += SPACE_WIDTH;
+        } else {
+            *chars_remaining = INT8_MIN;
+            return;
+        }
+        ++width;
+    }
+
+    if (c == '\n') {
+        ++*offset;
+    }
+
+    *chars_remaining = BANNER_WIDTH - 2 - width;
+}
